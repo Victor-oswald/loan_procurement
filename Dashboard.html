@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Dashboard - E-Student's Loan Procurement System</title>
+    <style>
+        body {
+            font-family: cursive;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #3498db;
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+            width: 100%;
+            top: 0;
+            position: fixed;
+        }
+
+        header img {
+            max-width: 80px;
+            height: auto;
+            margin: 0;
+        }
+
+        main {
+            max-width: 800px;
+            width: 100%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-top: 150px;
+            margin-left: 30%;
+        }
+
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            color: #555;
+        }
+
+        section {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        @media(max-width:780px) {
+            section {
+                display: grid;
+            }
+        }
+
+        .card {
+            flex: 1;
+            padding: 20px;
+            margin: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        button {
+            width: 80%;
+            padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .loan-status {
+            margin-top: 20px;
+        }
+
+        .loan-status h2 {
+            color: #333;
+        }
+
+        .loan-status p {
+            color: #555;
+        }
+
+        .owing-status {
+            margin-top: 20px;
+        }
+
+        .owing-status h2 {
+            color: #333;
+        }
+
+        .owing-status p {
+            color: #555;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1em;
+        }
+    </style>
+    <style>
+        .modal {
+            display: none;
+            position: absolute;
+            top: 15%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: grid;
+        }
+
+        .close {
+            cursor: pointer;
+            position: absolute;
+            top: 30%;
+            font-size: 20px;
+            color: #fff;
+            right: 30%;
+
+        }
+
+        #loanApplicationForm {
+            display: grid;
+            padding: 10px;
+            max-width: 300px;
+        }
+
+        #loanApplicationForm button {
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+        #loanApplicationForm select {
+            padding: 10px;
+            border: 1px solid rgba(245, 202, 9, 0.479);
+            border-radius: 10px;
+            outline: none;
+
+        }
+
+        #loanApplicationForm label {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            margin-top: 30px;
+
+        }
+
+        #studentLoanDetails,
+        #otherLoanDetails {
+            display: grid;
+            padding: 0;
+            max-width: 300px;
+            margin-left: 0;
+        }
+
+        #studentLoanDetails input, #accountDetails input {
+            display: grid;
+            padding: 10px;
+            border: 1px solid rgba(245, 202, 9, 0.479);
+            border-radius: 10px;
+            outline: none;
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        #studentLoanDetails label, #accountDetails label {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            margin-top: 30px;
+
+        }
+    </style>
+    <style>
+        aside {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            width: 200px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+        }
+
+        button.sidebar-button {
+            width: 80%;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button.sidebar-button:hover {
+            background-color: #2980b9;
+        }
+
+        @media (min-width: 781px) {
+            #openSidebar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 780px) {
+            #openSidebar {
+                display: block;
+            }
+        }
+
+        footer {
+            margin-top: 10vh;
+        }
+
+        footer p {
+            color: #2980b9;
+            opacity: 0.7;
+        }
+
+        footer small {
+            color: rgb(119, 240, 119);
+            font-size: x-small;
+            opacity: 0.4;
+        }
+
+
+    </style>
+    <style>
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+    
+        .overlay-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: grid;
+            text-align: center;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <aside>
+        <img src="20240110_212410_0000-removebg-preview.png" alt="Logo" style="width: 150px;margin-bottom: 5vh;">
+        <button class="sidebar-button" onclick="logout()">Logout</button>
+        <button class="sidebar-button" onclick="openSupportModal()">Support</button>
+        <footer>
+            <p>Powered by Grow Up students E-Loan Procurement system</p>
+            <small>Terms and conditions Apply</small>
+        </footer>
+    </aside>
+    <header>
+        <img src="20240110_212410_0000-removebg-preview.png" alt="Logo">
+        <button id="openSidebar" class="mobile-only" onclick="openSidebar()">☰</button>
+    </header>
+    <div id="repaymentOverlay" class="overlay">
+        <div id="repaymentOverlayContent" class="overlay-content"></div>
+    </div>
+    <main>
+        <section>
+            <div class="card">
+                <h2>Loan Details</h2>
+                <div id="loanDetailsCard"></div>
+            </div>
+
+            <div class="card">
+                <h2>Repayment Information</h2>
+                <div id='repaymentDetailsCard'></div>
+            </div>
+            <div class="card">
+                <h2>Credit Status</h2>
+                <div id='status'></div>
+
+            </div>
+            <div class="card">
+                <h2>Loan History</h2>
+                <a href="History.html"><button>See History</button></a>
+            </div>
+        </section>
+
+        <button onclick="openLoanForm()" id="newLoan">Apply for a New Loan</button>
+        <!-- Loan Application Form Modal -->
+        <div id="loanFormModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeLoanFormModal()">&times;</span>
+                <h2>Loan Application Form</h2>
+
+                <form id="loanApplicationForm" onsubmit="submitLoanForm(); return false;">
+                    <label for="loanReason">Reason for Loan:</label>
+                    <select id="loanReason" name="loanReason" required>
+                        <option value="">Select a Loaning Reason</option>
+                        <option value="education">Education</option>
+                        <option value="medical">Medical</option>
+                        <option value="personal">Personal</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                    <label for="loanType">Type of Loan:</label>
+                    <select id="loanType" name="loanType" required>
+                        <option value="">Select a loan type</option>
+                        <option value="student">Student Loan</option>
+                        <option value="personal">Personal Loan</option>
+                        <option value="business">Business Loan</option>
+                    </select>
+
+                    <div id="otherLoanDetails">
+                        <label for="schedule">Payment Schedule</label>
+                        <select id="schedule" name="loanType" required>
+                            <option value="">Select a Payment Schedule</option>
+                            <option value="Annually">Annually</option>
+                            <option value="Monthly">Monthly</option>
+                            <option value="Weekly">weekly</option>
+                        </select>
+
+                    </div >
+                    <div id="accountDetails">
+                        <label for="studentID">Account Number:</label>
+                        <input type="text" id="studentID" name="account" required>
+
+                        <label for="institution">Bank:</label>
+                        <input type="text" id="institution" name="bank" required>                    
+                    </div>
+
+
+                    <div id="studentLoanDetails" style="display: none;">
+                        <label for="studentID">Student ID Number:</label>
+                        <input type="text" id="studentID" name="studentID">
+
+                        <label for="institution">Institution:</label>
+                        <input type="text" id="institution" name="institution">
+                    </div>
+
+
+                    <button type="submit">Submit Application</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of Service</a>
+    </footer>
+    <script>
+        function openRepayForm() {
+            document.getElementById('RepayFormModal').style.display = 'flex';
+            document.getElementById('repaymentOverlay').style.display = 'flex';
+        }
+    
+        function closeRepayFormModal() {
+            document.getElementById('RepayFormModal').style.display = 'none';
+            document.getElementById('repaymentOverlay').style.display = 'none';
+        }
+    
+        function displayRepaymentDetails(accountNumber, accountName, bank) {
+            const overlayContent = document.getElementById('repaymentOverlayContent');
+            overlayContent.innerHTML = `
+                <h3>Repayment Details</h3>
+                <p>Account Number: ${accountNumber}</p>
+                <p>Account Name: ${accountName}</p>
+                <p>Bank: ${bank}</p>
+                <button onclick=confirm()>Confirm Payment</button>
+
+            `;
+        }
+    </script>
+    <script>
+        function confirm(){
+            window.location.href='repayment.html';
+        }
+        function openLoanForm() {
+            document.getElementById('loanFormModal').style.display = 'flex';
+        }
+
+        function closeLoanFormModal() {
+            document.getElementById('loanFormModal').style.display = 'none';
+        }
+        function openRepayForm() {
+            document.getElementById('RepayFormModal').style.display = 'flex';
+        }
+
+        function closeRepayFormModal() {
+            document.getElementById('RepayFormModal').style.display = 'none';
+        }
+    </script>
+    <script>
+
+        function submitLoanForm() {
+            const formData = new FormData(document.getElementById('loanApplicationForm'));
+
+            const loanReasonSelect = document.getElementById('loanReason');
+            formData.append('loanReason', loanReasonSelect.options[loanReasonSelect.selectedIndex].value);
+
+            const loanTypeSelect = document.getElementById('loanType');
+            formData.append('loanType', loanTypeSelect.options[loanTypeSelect.selectedIndex].value);
+
+            const schedule = document.getElementById('schedule');
+            formData.append('schedule', schedule.options[schedule.selectedIndex].value);
+
+
+            fetch('loan.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Form submission response:', data);
+
+                    const confirmationMessage = `Thank you for your interest in our loan system. Your data has been received as follows:\n\n`
+                        + `Reason for loan: ${data.data.loanReason} reasons\n`
+                        + `Repayment Schedule: ${data.data.schedule}\n`
+                        + `Account Number: ${data.data.account}\n`
+                        + `Bank: ${data.data.bank}\n`
+                        + `Type of loan: ${data.data.loanType} loan\n\n`
+                        + `Please kindly check back after a little while to see the loan amount approved for you\n`
+                        + `Cheers!`;
+
+                    alert(confirmationMessage);
+
+                    closeLoanFormModal();
+
+                })
+                .catch(error => {
+                    console.error('Error submitting form:', error);
+                });
+        }
+
+        document.getElementById('loanType').addEventListener('change', function () {
+            const studentLoanDetails = document.getElementById('studentLoanDetails');
+            studentLoanDetails.style.display = this.value === 'student' ? 'block' : 'none';
+        });
+
+
+        document.getElementById('loanType').addEventListener('change', function () {
+            const studentLoanDetails = document.getElementById('studentLoanDetails');
+            studentLoanDetails.style.display = this.value === 'student' ? 'block' : 'none';
+        });
+    </script>
+
+    <script>
+        function openSidebar() {
+            const sidebar = document.querySelector('aside');
+            sidebar.style.transform = 'translateX(0)';
+        }
+
+        function closeSidebar() {
+            const sidebar = document.querySelector('aside');
+            sidebar.style.transform = 'translateX(-100%)';
+        }
+
+        window.addEventListener('resize', function () {
+            if (window.innerWidth > 780) {
+                openSidebar();
+            }
+        });
+
+        function logout() {
+            closeSidebar();
+        }
+
+        function openSupport() {
+            closeSidebar();
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            fetchLoanDetails();
+            fetchRepaymentDetails();
+            fetchCreditStatus();
+        });
+let user='';
+        async function fetchLoanDetails() {
+            try {
+                const response = await fetch('loandetails.php');
+                const data = await response.json();
+
+                const loanDetailsCard = document.getElementById('loanDetailsCard');
+
+                if (data.length >= 1) {
+                    loanDetailsCard.innerHTML = `
+                <p>Approved Loan Amount: $${data[0].approved_amount}</p>
+                <p>Interest Rate: ${data[0].interest}%</p>
+                <button id="collectLoanButton">Collect Loan</button>
+            `;
+            user=data[0].user;
+                    document.getElementById('collectLoanButton').addEventListener('click', function () {
+                        collectLoan(data);
+                    });
+                } else {
+                    loanDetailsCard.innerHTML = `
+                <p>There is currently no approved loans at this time, check back later.</p>
+            `;
+                }
+            } catch (error) {
+                console.error('Error fetching loan details:', error);
+            }
+        }
+
+        async function collectLoan(data) {
+            try {
+                if (!data || data.length === 0) {
+                    console.error('No loan details available.');
+                    return;
+                }
+
+                const loanDetails = {
+                    amount: data[0].approved_amount,
+                    interest: data[0].interest,
+                    schedule:data[0].schedule
+                };
+
+                const response = await fetch('accept.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(loanDetails),
+                });
+
+                const responseData = await response.text();
+                console.log('Response from accept.php:', responseData);
+                alert('Congratulations, you have collected this loan offer. The loan will be disbursed into your provided account details');
+                window.location.reload()
+            } catch (error) {
+                console.error('Error collecting loan:', error);
+            }
+        }
+
+
+        function fetchRepaymentDetails() {
+            fetch('Repayment.php')
+                .then(response => response.json())
+                .then(data => {
+                    const repaymentDetailsCard = document.getElementById('repaymentDetailsCard');
+
+                    if (data.length >= 1) {
+                        hideElementById('collectLoanButton')
+    const total_interest = (data[0].interest / 100) * data[0].loan_amount;
+    const init_total = data[0].loan_amount + total_interest;
+    const total=init_total-data[0].approved_repayed_amount;
+    if(total<=0){
+        deleteRequest();
+    }
+        let days = 0;
+        const loanDate = new Date(data[0].date);
+        const currentdate = new Date();
+
+        if (currentdate >= loanDate) {
+            const timeElapsed = currentdate - loanDate;
+            days = Math.floor(timeElapsed / (1000 * 60 * 60 * 24));
+        }
+
+        let dueAmount = 0;
+        let dueDate;
+
+        switch (data[0].schedule) {
+            case "Annually":
+                days = 365;
+                dueAmount = total;
+                break;
+            case "Monthly":
+                days = 30;
+                dueAmount = total / 12;
+                break;
+            case "Weekly":
+                days = 7;
+                dueAmount = total / 52;
+                break;
+            default:
+                days = 0;
+                dueAmount = 0;
+        }
+        dueDate = new Date(loanDate.getTime() + days * 24 * 60 * 60 * 1000);
+
+        console.log("Due Date:", dueDate);
+        console.log("Due Amount:", dueAmount);
+
+                            repaymentDetailsCard.innerHTML = `
+                        <p>Total Payment Due: $${Math.round(init_total)}</p>
+                        <p>Next Payment Due: $${Math.round(dueAmount)}</p>
+                        <p>Due date:${dueDate}</p>
+                        <button onclick="payNow()">Pay now</button>
+                    `;
+                        } else {
+                            repaymentDetailsCard.innerHTML = `
+                        <p>You have not collected any loan at this time.</p>
+                    `;
+                        }
+                    })
+                .catch(error => {
+                    console.error('Error fetching repayment details:', error);
+                });
+        }
+
+        function fetchCreditStatus() {
+            fetch('creditCheck.php')
+                .then(response => response.json())
+                .then(data => {
+                    const statusDetailsCard = document.getElementById('status');
+
+                    if (data[0] == 'The user is currently owing') {
+                        statusDetailsCard.innerHTML = `
+                        <i class='fa fa-warning'></i><p style='color:red'>You have outstanding loan, you are not eligible to borrow at the moment.</p>
+                    `;
+                    hideElementById('newLoan');
+                    } else {
+                        statusDetailsCard.innerHTML = `
+                        <p style='color:green'>You currently don't have outstanding loans at this time.</p>
+                    `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching credit status:', error);
+                });
+        }
+
+        function payNow() {
+    console.log("payNow function called.");
+
+    const accountNumber = '123456789';
+    const accountName = user;
+    const bank = 'GrowUp Microfinance Bank';
+
+    displayRepaymentDetails(accountNumber, accountName, bank);
+
+    const overlay = document.getElementById('repaymentOverlay');
+    console.log("Overlay element:", overlay);
+
+    if (overlay) {
+        overlay.style.display = 'flex';
+        console.log("Overlay shown.");
+    } else {
+        console.error("Overlay element not found.");
+    }
+}
+
+
+        function hideElementById(elementId) {
+    const element = document.getElementById(elementId);
+
+    if (element) {
+        element.style.display = "none";
+    } else {
+        console.error(`Element with ID '${elementId}' not found.`);
+    }
+}
+function deleteRequest() {
+    fetch('deleteRequest.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user: user }),
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log('Response from deleteRequest.php:', data);
+    })
+    .catch(error => {
+        console.error('Error deleting loan request:', error);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    fetch('logout.php', {
+        method: 'GET'
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Response from logout.php (GET):', data);
+
+            if (data.status === 'error' && data.message === 'User session is not set.') {
+                window.location.href = 'login.html';
+            }
+        })
+        .catch(error => {
+            console.error('Error making GET request to logout.php:', error);
+        });
+});
+
+function logout() {
+    fetch('logout.php', {
+        method: 'POST'
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Response from logout.php (POST):', data);
+            window.location.href = 'login.html';
+
+        })
+        .catch(error => {
+            console.error('Error making POST request to logout.php:', error);
+        });
+}
+
+
+    </script>
+    
+</body>
+
+</html>

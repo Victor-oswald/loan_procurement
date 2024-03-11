@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Student's Loan Procurement System</title>
+    <style>
+        body {
+            font-family: cursive;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+    background-color: #3498db;
+    color: #fff;
+    text-align: center;
+    padding: 2em 0;
+}
+
+header img {
+    max-width: 80px;
+    height: auto;
+    margin: 10px 0;
+    filter: brightness(0) invert(1);
+}
+
+header h1 {
+    font-size: 2em;
+    margin: 10px 0;
+}
+
+header p {
+    font-size: 1.2em;
+    margin: 0;
+}
+
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1em;
+        }
+
+        section {
+    position: relative;
+    height: 50vh;
+    margin: 20px auto;
+    padding: 20px;
+    background-image: url('download (1).jpeg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+section::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1); 
+    border-radius: 8px;
+}
+
+h2, p {
+    color: #fff;
+    z-index: 1;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    z-index: 1;
+}
+
+.cta-button:hover {
+    background-color: #294fb9;
+}
+
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1em;
+        }
+        .content-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+
+        .content-container #text-wrap {
+            flex: 1;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        .content-container #text-wrap p {
+            color: black;
+        }
+
+        .content-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-right:0;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <img src="20240110_212410_0000-removebg-preview.png" alt="Logo">
+    </header>
+
+    <nav>
+        <a href="signup.html">Sign Up</a>
+        <a href="login.html">Login</a>
+        <a href="#about">About Us</a>
+        <a href="#contact">Contact Us</a>
+    </nav>
+
+    <section>
+        <h2>Welcome to Our Student Loan Platform</h2>
+        <p>
+            Empowering students with financial support for their education journey.
+        </p>
+        <p>
+            We provide easy and affordable student loan options. Apply now and invest in your future!
+        </p>
+        <a href="Dashboard.html" class="cta-button" style="z-index: 999;">Apply Now</a>
+    </section>
+    <div class="content-container">
+        <div id="text-wrap">
+            <h3>Why Apply with Us? </h3>
+            <p>
+                Our platform is designed to empower students
+                 by providing financial support tailored to your educational needs. We offer easy and affordable student loan options, ensuring that finance is not a barrier to achieving your academic goals.
+            </p>
+            <h5>Easy Application Process:</h5>
+            <p>
+                Applying for a loan with us is a hassle-free experience. Our intuitive and user-friendly application form streamlines the process, allowing you to submit your request with ease. Save time and
+                energy with our straightforward application, so you can focus on what matters most—your education.
+            </p>
+            <h5> Flexible Repayment Options:</h5>
+            <p>
+                We prioritize your financial well-being throughout your academic journey. Enjoy flexibility in repayment options, allowing you to choose a plan that aligns with your future financial goals. 
+                Whether you prefer a structured monthly payment or a customized schedule, we've got you covered.
+            </p>
+        </div>
+            <img src="images (1).jpeg" alt="Loan Image" id="sec-2" />
+    </div>
+    <h2 style="color: blue;text-align: center;">How to apply</h2>
+    <div class="content-container">
+        <img src="download.jpeg" alt="Loan Image" id="sec-2" />
+        <div id="text-wrap">
+            <h5>Navigate to the Application Form: </h5>
+            <p>
+                Click on the "Apply Now" button on our platform to access the loan application form.
+            </p>
+            <h5>Select Loan Details:</h5>
+            <p>
+                Choose the reason for your loan from options like education, medical, or personal.
+                Specify the type of loan, whether it's a student loan, personal loan, or a business loan.
+            </p>
+            <h5> Payment Schedule:
+
+            </h5>
+            <p>
+                Decide on a payment schedule that aligns with your financial plan, whether it's annually, monthly, or weekly.
+            </p>
+            <h5> Additional Details (if applicable):
+
+            </h5>
+            <p>
+                For student loans, provide your Student ID number and the institution you are associated with.            </p>
+        </div>
+    </div>
+
+    <footer>
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of Service</a>
+        <a href="#social-media">Follow Us</a>
+    </footer>
+</body>
+</html>
